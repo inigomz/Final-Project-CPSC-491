@@ -1,0 +1,31 @@
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Mm]emoryCaptures/
+.vscode/
+
+# Visual Studio
+.vs/
+*.csproj
+*.sln
+*.user
+*.userprefs
+
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Keep meta files
+!*.meta
+
+# Build outputs
+*.apk
+*.aab
+*.exe
+*.app
+*.unitypackage
+

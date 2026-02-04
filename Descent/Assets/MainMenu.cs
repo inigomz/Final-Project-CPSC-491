@@ -8,4 +8,10 @@ public class MainMenu : MonoBehaviour
         Debug.Log("START CLICKED");
         SceneManager.LoadScene("TextScene");
     }
+
+    public void OpenOptions()
+    {
+        Debug.Log("OPTIONS CLICKED");
+        SceneManager.LoadScene("OptionsMenu");
+    }
 }

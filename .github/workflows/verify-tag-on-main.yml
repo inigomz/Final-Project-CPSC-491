@@ -1,0 +1,68 @@
+# *************************************************************************
+# * This program is free software: you can redistribute it and/or modify  *
+# * it under the terms of the GNU General Public License as published by  *
+# * the Free Software Foundation, either version 3 of the License, or (at *
+# * your option) any later version. This program is distributed in the    *
+# * hope that it will be useful, but WITHOUT ANY WARRANTY; without even   *
+# * the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR   *
+# * PURPOSE. See the GNU General Public License for more details.         *
+# * <https://www.gnu.org/licenses/>.                                      *
+# *************************************************************************
+# Author: Inigo Miguel Zulueta
+# File Name : verify-tag-on-main.yml
+# Purpose: This module verifies if there is a release tag getting committed
+#          to the main branch. Also introduces a solution if a release tag
+#          has not been inputted to main.
+
+# =========================== BEGIN CODE ====================================================================
+
+name: Check if main HEAD has v* tag
+
+# On a push to main
+on:
+  push:
+    branches: [ "main" ]
+# read only
+permissions:
+  contents: read
+
+
+jobs:
+  
+  check-version-tag:
+    runs-on: ubuntu-latest
+    outputs:
+      is_versioned: ${{ steps.tagcheck.outputs.is_versioned }}
+      version_tag: ${{ steps.tagcheck.outputs.version_tag }}
+
+    steps:
+      - name: Checkout (include tags)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # ensures tags/history are available reliably
+
+      - name: Check whether HEAD is tagged with v*
+        id: tagcheck
+        shell: bash
+        run: |
+          # Find tags that point exactly at the current commit (HEAD)
+          TAGS_ON_HEAD="$(git tag --points-at HEAD | grep -E '^v' || true)"
+
+          # Head has a tag -> output true
+          if [ -n "$TAGS_ON_HEAD" ]; then
+            # If multiple v* tags exist on HEAD, pick the first tag
+            VERSION_TAG="$(echo "$TAGS_ON_HEAD" | head -n 1)"
+            echo "OK: main HEAD is version-tagged: $VERSION_TAG"
+            echo "is_versioned=true" >> "$GITHUB_OUTPUT"
+            echo "version_tag=$VERSION_TAG" >> "$GITHUB_OUTPUT"
+            echo "Moving on to staging"
+          
+          # Head does not have a tag -> output false
+          else
+            echo "::warning::main HEAD has no version tag (v*). CD should not run for this push."
+            echo "is_versioned=false" >> "$GITHUB_OUTPUT"
+            echo "version_tag=" >> "$GITHUB_OUTPUT"
+          fi
+
+
+# ============================== END OF CODE ===============================================================================

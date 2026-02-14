@@ -1,31 +1,34 @@
 name: Unity Build (CI)
 
 on:
+  workflow_dispatch:
   pull_request:
+    branches: [ main ]
   push:
-    branches: [main]
+    branches: [ main ]
 
 jobs:
   build:
+    name: Build Unity Project
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          lfs: true
 
-      - name: Cache Library
+      - name: Cache Library folder
         uses: actions/cache@v4
         with:
           path: Descent/Library
-          key: Library-${{ runner.os }}-${{ hashFiles('Descent/Assets/**', 'Descent/Packages/**', 'Descent/ProjectSettings/**') }}
+          key: Library-${{ runner.os }}-${{ hashFiles('Descent/Assets/**', 'Descent/ProjectSettings/**') }}
           restore-keys: |
             Library-${{ runner.os }}-
 
       - name: Build project (Windows x64)
         uses: game-ci/unity-builder@v4
         env:
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
           projectPath: Descent
@@ -33,29 +36,22 @@ jobs:
           buildsPath: build
           buildName: Descent
 
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Descent-Windows-Build
+          path: build
+
       - name: Highlight errors/warnings from Unity log (best-effort)
         if: always()
         run: |
           set +e
-          LOGFILE=$(find . -maxdepth 6 -type f \( -name "Editor.log" -o -name "*unity*.log" -o -name "*build*.log" \) | head -n 1)
-          if [ -n "$LOGFILE" ]; then
-            cp "$LOGFILE" unity.log
-            python3 .github/scripts/unity_log_annotate.py unity.log
+          if [ -f "unity.log" ]; then
+            echo "---- Unity Errors ----"
+            grep -i "error" unity.log || true
+            echo "---- Unity Warnings ----"
+            grep -i "warning" unity.log || true
           else
-            echo "::notice::No Unity log file found to annotate."
+            echo "No unity.log found."
           fi
-
-      - name: Upload build artifact (deployable)
-        uses: actions/upload-artifact@v4
-        with:
-          name: Descent-Windows64
-          path: build
-
-      - name: Upload logs (if available)
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: unity-logs
-          path: unity.log
-        continue-on-error: true
 

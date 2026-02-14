@@ -26,13 +26,15 @@ jobs:
 
       - name: Build project (Windows x64)
         uses: game-ci/unity-builder@v4
-        env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
           projectPath: Descent
           targetPlatform: StandaloneWindows64
           buildsPath: build
           buildName: Descent
+        secrets:
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
 
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
@@ -52,4 +54,5 @@ jobs:
           else
             echo "No unity.log found."
           fi
+
 

@@ -1,0 +1,61 @@
+name: Unity Build (CI)
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Cache Library
+        uses: actions/cache@v4
+        with:
+          path: Descent/Library
+          key: Library-${{ runner.os }}-${{ hashFiles('Descent/Assets/**', 'Descent/Packages/**', 'Descent/ProjectSettings/**') }}
+          restore-keys: |
+            Library-${{ runner.os }}-
+
+      - name: Build project (Windows x64)
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        with:
+          projectPath: Descent
+          targetPlatform: StandaloneWindows64
+          buildsPath: build
+          buildName: Descent
+
+      - name: Highlight errors/warnings from Unity log (best-effort)
+        if: always()
+        run: |
+          set +e
+          LOGFILE=$(find . -maxdepth 6 -type f \( -name "Editor.log" -o -name "*unity*.log" -o -name "*build*.log" \) | head -n 1)
+          if [ -n "$LOGFILE" ]; then
+            cp "$LOGFILE" unity.log
+            python3 .github/scripts/unity_log_annotate.py unity.log
+          else
+            echo "::notice::No Unity log file found to annotate."
+          fi
+
+      - name: Upload build artifact (deployable)
+        uses: actions/upload-artifact@v4
+        with:
+          name: Descent-Windows64
+          path: build
+
+      - name: Upload logs (if available)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: unity-logs
+          path: unity.log
+        continue-on-error: true
+

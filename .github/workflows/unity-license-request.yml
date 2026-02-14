@@ -1,0 +1,20 @@
+name: Unity License Request (Generate .alf)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  request:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Request manual activation file
+        uses: game-ci/unity-request-activation-file@v2
+        with:
+          unityVersion: 6000.3.5f2
+
+      - name: Upload activation file (.alf)
+        uses: actions/upload-artifact@v4
+        with:
+          name: unity-activation-alf
+          path: Unity_v*.alf
+

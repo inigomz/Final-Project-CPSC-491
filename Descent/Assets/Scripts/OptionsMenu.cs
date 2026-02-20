@@ -11,7 +11,6 @@ public class OptionsMenu : MonoBehaviour
     public Slider volumeSlider;
     public TMP_Dropdown resolutionDropdown;
     public Toggle fullscreenToggle;
-    public AudioSource uiAudioSource;
 
     private Resolution[] resolutions;
 
@@ -50,15 +49,11 @@ public class OptionsMenu : MonoBehaviour
 
         // Fullscreen toggle
         fullscreenToggle.isOn = Screen.fullScreen;
-        fullscreenToggle.onValueChanged.AddListener(SetFullscreen);
 
         // Initialize volume slider
         if (volumeSlider != null)
         {
-            // Load saved value, default to 1
-            float savedVolume = PlayerPrefs.GetFloat("MasterVolume", 1f);
-            volumeSlider.value = savedVolume;
-            SetVolume(); // Apply immediately
+            SetVolume();
         }
 
         // Add listeners to UI elements
@@ -70,13 +65,8 @@ public class OptionsMenu : MonoBehaviour
     public void SetVolume()
     {
         if (volumeSlider == null || audioMixer == null) return;
-
         float volume = Mathf.Clamp(volumeSlider.value, 0.0001f, 1f);
         audioMixer.SetFloat("MasterVolume", Mathf.Log10(volume) * 20);
-
-        // Save volume to PlayerPrefs so other scenes can access it
-        PlayerPrefs.SetFloat("MasterVolume", volume);
-        PlayerPrefs.Save();
     }
 
     public void SetResolution(int index)
@@ -101,20 +91,11 @@ public class OptionsMenu : MonoBehaviour
 
     public void SetFullscreen(bool isFullscreen)
     {
-        // Apply fullscreen
-        Screen.fullScreenMode = isFullscreen 
-            ? FullScreenMode.FullScreenWindow 
-            : FullScreenMode.Windowed;
-
-        // Play the switch sound
-        if (uiAudioSource != null)
-        {
-            uiAudioSource.Play(); // Plays the AudioSource.clip assigned in Inspector
-        }
+        Screen.fullScreen = isFullscreen;
     }
 
     public void BackToMenu()
     {
-        SceneManager.LoadScene("TitleMenuScene");
+        SceneManager.LoadScene("MainMenu");
     }
 }

@@ -96,6 +96,6 @@ public class OptionsMenu : MonoBehaviour
 
     public void BackToMenu()
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("TitleMenuScene");
     }
 }

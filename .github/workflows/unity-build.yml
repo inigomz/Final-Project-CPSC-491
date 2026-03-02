@@ -1,0 +1,58 @@
+name: Unity Build (CI)
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    name: Build Unity Project
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Cache Library folder
+        uses: actions/cache@v4
+        with:
+          path: Descent/Library
+          key: Library-${{ runner.os }}-${{ hashFiles('Descent/Assets/**', 'Descent/ProjectSettings/**') }}
+          restore-keys: |
+            Library-${{ runner.os }}-
+
+      - name: Build project (Windows x64)
+        uses: game-ci/unity-builder@v4
+        with:
+          projectPath: Descent
+          targetPlatform: StandaloneWindows64
+          buildsPath: build
+          buildName: Descent
+        secrets:
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Descent-Windows-Build
+          path: build
+
+      - name: Highlight errors/warnings from Unity log (best-effort)
+        if: always()
+        run: |
+          set +e
+          if [ -f "unity.log" ]; then
+            echo "---- Unity Errors ----"
+            grep -i "error" unity.log || true
+            echo "---- Unity Warnings ----"
+            grep -i "warning" unity.log || true
+          else
+            echo "No unity.log found."
+          fi
+
+

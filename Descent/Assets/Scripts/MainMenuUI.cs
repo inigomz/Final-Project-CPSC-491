@@ -24,8 +24,16 @@ public class MainMenuUI : MonoBehaviour
 
     public void StartGame()
     {
-        Debug.Log("START CLICKED");
-        SceneManager.LoadScene("TextScene");
+        Debug.Log("NEW GAME STARTED");
+
+        // Reset game state
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.ResetGame();
+        }
+
+        // Load gameplay scene
+        SceneManager.LoadScene("Test_room");
     }
 
     public void OpenOptions()

@@ -2,16 +2,33 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public static GameManager Instance;
+
+    public int playerHealth;
+    public int playerXP;
+
+    void Awake()
     {
-        Debug.Log("Game Manager Initialized");
-        
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ResetGame()
     {
-        
+        Debug.Log("Game Reset");
+
+        playerHealth = 100;
+        playerXP = 0;
     }
+
+    // Future systems
+    // inventory.Clear();
+    // level = 1;
 }

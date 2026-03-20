@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 989
   m_ShowMode: 4
-  m_Title: Project
+  m_Title: Game
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -192,8 +192,8 @@ MonoBehaviour:
     y: 0
     width: 287
     height: 598
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 201, y: 226}
+  m_MaxSize: {x: 4001, y: 4026}
   m_ActualView: {fileID: 13}
   m_Panes:
   - {fileID: 13}
@@ -218,8 +218,8 @@ MonoBehaviour:
     y: 0
     width: 824
     height: 598
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 226}
+  m_MaxSize: {x: 4002, y: 4026}
   m_ActualView: {fileID: 14}
   m_Panes:
   - {fileID: 14}
@@ -273,8 +273,8 @@ MonoBehaviour:
     y: 0
     width: 809
     height: 933
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 276, y: 76}
+  m_MaxSize: {x: 4001, y: 4026}
   m_ActualView: {fileID: 19}
   m_Panes:
   - {fileID: 19}
@@ -587,31 +587,22 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs:
-      - m_Data: 36146
+      m_SelectedIDs: []
       m_LastClickedID:
         m_Data: 0
       m_ExpandedIDs:
-      - m_Data: -14212
-      - m_Data: -13908
-      - m_Data: -13206
-      - m_Data: -13170
-      - m_Data: -13156
-      - m_Data: -13120
-      - m_Data: -11688
-      - m_Data: -10636
-      - m_Data: -8694
-      - m_Data: -8390
-      - m_Data: -7762
-      - m_Data: -7736
-      - m_Data: -7730
-      - m_Data: -7704
-      - m_Data: -5168
-      - m_Data: -4864
-      - m_Data: -4154
-      - m_Data: -4144
-      - m_Data: -4114
-      - m_Data: -1336
+      - m_Data: -10264
+      - m_Data: -9960
+      - m_Data: -9266
+      - m_Data: -9240
+      - m_Data: -9234
+      - m_Data: -9206
+      - m_Data: -2364
+      - m_Data: -1344
+      - m_Data: 54408
+      - m_Data: 54462
+      - m_Data: 54466
+      - m_Data: 54470
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1274,9 +1265,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 0, y: 0, z: 0}
+    m_Target: {x: 1012.7677, y: 581.5916, z: -3.5135357}
     speed: 2
-    m_Value: {x: 0, y: 0, z: 0}
+    m_Value: {x: 1012.7677, y: 581.5916, z: -3.5135357}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1326,9 +1317,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 0.8660254
+    m_Target: 352.22125
     speed: 2
-    m_Value: 0.8660254
+    m_Value: 352.22125
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -1571,12 +1562,13 @@ MonoBehaviour:
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs:
-    - m_Data: 54082
+    - m_Data: 54170
     m_LastClickedID:
-      m_Data: 54082
+      m_Data: 54170
     m_ExpandedIDs:
     - m_Data: 0
-    - m_Data: 53762
+    - m_Data: 54070
+    - m_Data: 54858
     - m_Data: 1000000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -1610,7 +1602,7 @@ MonoBehaviour:
       m_Data: 0
     m_ExpandedIDs:
     - m_Data: 0
-    - m_Data: 53762
+    - m_Data: 54070
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1637,9 +1629,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs:
-    - m_Data: 36146
-    m_LastClickedInstanceID: 36146
+    m_SelectedInstanceIDs: []
+    m_LastClickedInstanceID: 0
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs:
     - m_Data: 50356
@@ -1647,8 +1638,8 @@ MonoBehaviour:
     - m_Data: 76088
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: GameManager
-      m_OriginalName: GameManager
+      m_Name: OptionsMenu
+      m_OriginalName: OptionsMenu
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
@@ -1656,7 +1647,7 @@ MonoBehaviour:
         width: 0
         height: 0
       m_UserData:
-        m_Data: 36146
+        m_Data: 54184
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
       m_OriginalEventType: 0

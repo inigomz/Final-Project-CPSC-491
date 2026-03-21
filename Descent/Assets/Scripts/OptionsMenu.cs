@@ -4,6 +4,7 @@ using UnityEngine.Audio;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEditor;
 
 public class OptionsMenu : MonoBehaviour
 {
@@ -48,29 +49,38 @@ public class OptionsMenu : MonoBehaviour
         SetResolution(defaultIndex);
 
         // Fullscreen toggle
-        fullscreenToggle.isOn = Screen.fullScreen;
+        fullscreenToggle.SetIsOnWithoutNotify(Screen.fullScreen);
 
-        // Initialize volume slider
+        // Initialize volume slider (load saved value)
         if (volumeSlider != null)
         {
-            SetVolume();
+            float savedVol = PlayerPrefs.GetFloat("MasterVolume", 1f);
+            savedVol = Mathf.Clamp(savedVol, 0.0001f, 1f);
+
+            volumeSlider.SetValueWithoutNotify(savedVol);
+            SetVolume(savedVol);
         }
 
         // Add listeners to UI elements
         resolutionDropdown.onValueChanged.AddListener(SetResolution);
         fullscreenToggle.onValueChanged.AddListener(SetFullscreen);
-        volumeSlider.onValueChanged.AddListener(delegate { SetVolume(); });
+        volumeSlider.onValueChanged.AddListener(SetVolume);
     }
 
-    public void SetVolume()
-    {
+    public void SetVolume(float value)
+    {   Debug.Log ($"[CALL] SetVolume({value})");
         if (volumeSlider == null || audioMixer == null) return;
-        float volume = Mathf.Clamp(volumeSlider.value, 0.0001f, 1f);
+
+        float volume = Mathf.Clamp(value, 0.0001f, 1f);
         audioMixer.SetFloat("MasterVolume", Mathf.Log10(volume) * 20);
+
+        PlayerPrefs.SetFloat("MasterVolume", volume);
+        PlayerPrefs.Save();
     }
 
     public void SetResolution(int index)
     {
+        Debug.Log($"[CALL] SetResolution({index})");
         if (index < 0 || index >= resolutions.Length) return;
         Resolution res = resolutions[index];
 
@@ -91,7 +101,19 @@ public class OptionsMenu : MonoBehaviour
 
     public void SetFullscreen(bool isFullscreen)
     {
+        Debug.Log($"[CALL] SetFullscreen({isFullscreen});"); 
+        if (Screen.fullScreen == isFullscreen) return;
+        // Force a reliable fullscreen behavior on Windows
+        Screen.fullScreenMode = isFullscreen
+            ? FullScreenMode.FullScreenWindow   // borderless fullscreen
+            : FullScreenMode.Windowed;
+
         Screen.fullScreen = isFullscreen;
+
+        // Re-apply current resolution so the change takes effect immediately
+        Screen.SetResolution(Screen.width, Screen.height, isFullscreen);
+
+        Debug.Log($"Fullscreen toggled -> {isFullscreen} | Mode: {Screen.fullScreenMode} | Res: {Screen.width}x{Screen.height}");
     }
 
     public void BackToMenu()

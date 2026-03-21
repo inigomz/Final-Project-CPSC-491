@@ -12,11 +12,17 @@ public class MainMenuUI : MonoBehaviour
         // Load saved volume (default 1 if not set)
         float volume = PlayerPrefs.GetFloat("MasterVolume", 1f);
 
+        // Prevent Log10(0) -> -Infinity
+        volume = Mathf.Clamp(volume, 0.0001f, 1f);
+
         // Apply to AudioMixer
-        audioMixer.SetFloat("MasterVolume", Mathf.Log10(volume) * 20);
+        if (audioMixer != null)
+        {
+            audioMixer.SetFloat("MasterVolume", Mathf.Log10(volume) * 20);
+        }
 
         // Optional: start playing music
-        if (musicSource != null)
+        if (musicSource != null && !musicSource.isPlaying)
         {
             musicSource.Play();
         }

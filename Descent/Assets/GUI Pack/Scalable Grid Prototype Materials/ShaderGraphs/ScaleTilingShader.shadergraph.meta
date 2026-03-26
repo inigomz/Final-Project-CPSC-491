@@ -1,5 +1,12 @@
 fileFormatVersion: 2
 guid: 74686ab863fe0dc4598560e65eb847eb
+AssetOrigin:
+  serializedVersion: 1
+  productId: 214264
+  packageName: Minimalist Scalable Grid Prototype Materials
+  packageVersion: 1.2
+  assetPath: Assets/Scalable Grid Prototype Materials/ShaderGraphs/ScaleTilingShader.shadergraph
+  uploadId: 640529
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -8,10 +15,11 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: 625f186215c104763be7675aa2d941aa, type: 3}
-AssetOrigin:
-  serializedVersion: 1
-  productId: 214264
-  packageName: Minimalist Scalable Grid Prototype Materials
-  packageVersion: 1.2
-  assetPath: Assets/Scalable Grid Prototype Materials/ShaderGraphs/ScaleTilingShader.shadergraph
-  uploadId: 640529
+  useAsTemplate: 0
+  exposeTemplateAsShader: 0
+  template:
+    name: 
+    category: 
+    description: 
+    icon: {instanceID: 0}
+    thumbnail: {instanceID: 0}

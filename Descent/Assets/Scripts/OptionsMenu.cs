@@ -17,23 +17,25 @@ public class OptionsMenu : MonoBehaviour
 
     void Start()
     {
-        // Populate resolutions without duplicates
-        List<Resolution> uniqueRes = new List<Resolution>();
-        foreach (Resolution res in Screen.resolutions)
+        resolutions = new Resolution[]
         {
-            if (!uniqueRes.Exists(r => r.width == res.width && r.height == res.height))
-                uniqueRes.Add(res);
-        }
-        resolutions = uniqueRes.ToArray();
+            new Resolution { width = 1280, height = 720 },   // good smaller option
+            new Resolution { width = 1600, height = 900 },   // medium
+            new Resolution { width = 1920, height = 1080 }   // full HD
+        };
 
         resolutionDropdown.ClearOptions();
+
+        List<string> options = new List<string>();
         foreach (Resolution res in resolutions)
         {
-            resolutionDropdown.options.Add(new TMP_Dropdown.OptionData(res.width + " x " + res.height));
+            options.Add(res.width + " x " + res.height);
         }
 
+        resolutionDropdown.AddOptions(options);
+
         // Set default index to 1920x1080 if available
-        int defaultIndex = 0;
+        int defaultIndex = 2; // 1920x1080
         for (int i = 0; i < resolutions.Length; i++)
         {
             if (resolutions[i].width == 1920 && resolutions[i].height == 1080)
@@ -83,20 +85,8 @@ public class OptionsMenu : MonoBehaviour
         Debug.Log($"[CALL] SetResolution({index})");
         if (index < 0 || index >= resolutions.Length) return;
         Resolution res = resolutions[index];
-
-        // Apply resolution and fullscreen properly
-        if (Screen.fullScreen)
-        {
-            // Fullscreen: use desktop resolution
-            Screen.SetResolution(res.width, res.height, true);
-        }
-        else
-        {
-            // Windowed: subtract OS border if needed
-            Screen.SetResolution(res.width, res.height, false);
-        }
-
-        Debug.Log("Resolution set to: " + res.width + "x" + res.height + " Fullscreen: " + Screen.fullScreen);
+        Screen.SetResolution(res.width, res.height, Screen.fullScreenMode);
+        Debug.Log("Resolution set to: " + res.width + "x" + res.height);
     }
 
     public void SetFullscreen(bool isFullscreen)

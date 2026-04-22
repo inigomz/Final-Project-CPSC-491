@@ -1,0 +1,45 @@
+name: PR Guard
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  check-repo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Check for Unity junk files
+        run: |
+          echo "Checking for forbidden Unity files..."
+
+          if git ls-files | grep -E "UserSettings/"; then
+            echo "ERROR: UserSettings files should not be committed!"
+            exit 1
+          fi
+
+          if git ls-files | grep -E "\.dwlt$"; then
+            echo "ERROR: Layout (.dwlt) files should not be committed!"
+            exit 1
+          fi
+
+      - name: Check for duplicate Unity files
+        run: |
+          echo "Checking for duplicate Unity files..."
+
+          if git ls-files | grep -E " 2\."; then
+            echo "ERROR: Duplicate Unity files detected!"
+            exit 1
+          fi
+
+      - name: Check for merge conflict markers
+        run: |
+          echo "Checking for merge conflicts..."
+
+          if grep -R "<<<<<<< HEAD" .; then
+            echo "ERROR: Merge conflict markers found!"
+            exit 1
+          fi

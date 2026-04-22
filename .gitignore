@@ -1,12 +1,69 @@
+# =========================
+# OS FILES
+# =========================
+.DS_Store
 
-# Unity generated folders
-[Ll]ibrary/
-[Tt]emp/
-[Oo]bj/
-[Bb]uild/
-[Bb]uilds/
-[Ll]ogs/
-[Uu]ser[Ss]ettings/
+# =========================
+# UNITY GENERATED FOLDERS
+# =========================
+Library/
+Temp/
+Obj/
+Build/
+Builds/
+Logs/
+UserSettings/
 
-# Unity user-specific settings (do not commit)
+# =========================
+# UNITY GENERATED FILES
+# =========================
+*.csproj
+*.unityproj
+*.sln
+*.slnx
+*.user
+*.userprefs
+*.pidb
+*.booproj
+
+# =========================
+# UNITY CACHE / META ISSUES
+# =========================
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
+
+# =========================
+# VISUAL STUDIO / VS CODE
+# =========================
+.vscode/
+*.mdb
+*.opendb
+*.VC.db
+
+# =========================
+# UNITY AUTOSAVES / TEMP
+# =========================
+*.bak
+*.tmp
+
+# =========================
+# UNITY DUPLICATE FILES (IMPORTANT FOR YOUR CI)
+# =========================
+* 2.meta
+* 2.anim
+* 2.overrideController
+* 2.controller
+* 2.asset
+* 2.cs
+
+# =========================
+# IGNORE USER SETTINGS (VERY IMPORTANT)
+# =========================
 Descent/UserSettings/
+
+# =========================
+# OPTIONAL (SAFE)
+# =========================
+MemoryCaptures/
+Recordings/

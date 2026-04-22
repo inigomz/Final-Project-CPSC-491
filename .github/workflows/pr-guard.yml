@@ -39,7 +39,7 @@ jobs:
         run: |
           echo "Checking for merge conflicts..."
 
-          if grep -R "<<<<<<< HEAD" .; then
+          if git grep -n -F '<<<<<<< HEAD' -- . ':(exclude).github/workflows/*'; then
             echo "ERROR: Merge conflict markers found!"
             exit 1
           fi

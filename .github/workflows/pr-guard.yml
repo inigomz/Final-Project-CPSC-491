@@ -30,8 +30,8 @@ jobs:
         run: |
           echo "Checking for duplicate Unity files..."
 
-          if git ls-files | grep -E " 2\."; then
-            echo "ERROR: Duplicate Unity files detected!"
+          if git ls-files | grep -E " 2\.(meta|anim|controller|asset|cs|overrideController)$"; then
+            echo "ERROR: Duplicate Unity-generated files detected!"
             exit 1
           fi
 

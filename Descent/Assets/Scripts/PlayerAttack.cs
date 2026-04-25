@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
@@ -9,7 +10,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Space))
         {
-            EnemyHealth[] enemies = FindObjectsOfType<EnemyHealth>();
+            EnemyHealth[] enemies = FindObjectsOfType<EnemyHealth>(FindObjectsSortMode.None);
 
             foreach (EnemyHealth enemy in enemies)
             {
@@ -17,9 +18,16 @@ public class PlayerAttack : MonoBehaviour
 
                 if (distance <= attackRange)
                 {
+                    Debug.Log("Hit enemy: " + enemy.name);
                     enemy.TakeDamage(damage);
                 }
             }
         }
     }
+
+    private T[] FindObjectsOfType<T>(FindObjectsSortMode none)
+    {
+        throw new NotImplementedException();
+    }
+
 }

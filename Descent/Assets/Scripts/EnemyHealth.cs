@@ -1,32 +1,43 @@
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyHealth : MonoBehaviour
 {
-    public int maxHealth = 3;
+    public int maxHealth = 10;
     private int currentHealth;
+
+    public Slider healthBar;
 
     void Start()
     {
         currentHealth = maxHealth;
+        UpdateHealthBar();
     }
 
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
-        Debug.Log(gameObject.name + " took damage. Health: " + currentHealth);
+        UpdateHealthBar();
 
-        if (currentHealth <= 0)
+        if (currentHealth == 0)
         {
             Die();
         }
     }
 
+    void UpdateHealthBar()
+    {
+        healthBar.value = (float)currentHealth / maxHealth;
+    }
+
     void Die()
     {
-        Debug.Log("Enemy died");
+        Debug.Log(gameObject.name + " died");
 
-        PlayerXP xp = FindObjectOfType<PlayerXP>();
+        PlayerXP xp = FindFirstObjectOfType<PlayerXP>();
         if (xp != null)
         {
             xp.AddXP(5);
@@ -34,4 +45,10 @@ public class EnemyHealth : MonoBehaviour
 
         Destroy(gameObject);
     }
+
+    private T FindFirstObjectOfType<T>()
+    {
+        throw new NotImplementedException();
+    }
+
 }

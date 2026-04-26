@@ -4,8 +4,8 @@ public class WeaponPickup : MonoBehaviour
 {
     [Header("Weapon Stats")]
     public string weaponName = "Sword";
-    public int damage = 3;
-    public float attackRange = 2.0f;
+    public int damageBoost = 2;
+    public float rangeBoost = 0.5f;
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -18,8 +18,10 @@ public class WeaponPickup : MonoBehaviour
 
         if (playerAttack != null)
         {
-            playerAttack.EquipWeapon(weaponName, damage, attackRange);
-            Debug.Log("Picked up weapon: " + weaponName);
+            playerAttack.IncreaseDamage(damageBoost);
+            playerAttack.IncreaseRange(rangeBoost);
+
+            Debug.Log("Picked up weapon power-up: " + weaponName);
             Destroy(gameObject);
         }
     }

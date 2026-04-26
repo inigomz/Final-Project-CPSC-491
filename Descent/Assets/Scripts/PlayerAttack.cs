@@ -2,12 +2,11 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    [Header("Equipped Weapon")]
-    public string weaponName = "Fists";
+    [Header("Attack Stats")]
     public int damage = 1;
-    public float attackRange = 1.5f;
+    public float attackRange = 2f;
 
-    [Header("Attack Settings")]
+    [Header("Attack Keys")]
     public KeyCode primaryAttackKey = KeyCode.E;
     public KeyCode secondaryAttackKey = KeyCode.Space;
 
@@ -32,18 +31,21 @@ public class PlayerAttack : MonoBehaviour
 
             if (distance <= attackRange)
             {
-                Debug.Log("Hit enemy with " + weaponName + ": " + enemy.name);
+                Debug.Log("Hit enemy: " + enemy.name + " for " + damage + " damage.");
                 enemy.TakeDamage(damage);
             }
         }
     }
 
-    public void EquipWeapon(string newWeaponName, int newDamage, float newAttackRange)
+    public void IncreaseDamage(int amount)
     {
-        weaponName = newWeaponName;
-        damage = newDamage;
-        attackRange = newAttackRange;
+        damage += amount;
+        Debug.Log("Damage increased! New damage: " + damage);
+    }
 
-        Debug.Log("Equipped weapon: " + weaponName + " | Damage: " + damage + " | Range: " + attackRange);
+    public void IncreaseRange(float amount)
+    {
+        attackRange += amount;
+        Debug.Log("Attack range increased! New range: " + attackRange);
     }
 }

@@ -1,0 +1,43 @@
+name: Unity Tests (CI)
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main, sprint3-healthbar-clean ]
+
+jobs:
+  unity-tests:
+    name: Run Unity EditMode Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Cache Unity Library
+        uses: actions/cache@v4
+        with:
+          path: Descent/Library
+          key: Library-Test-${{ runner.os }}-${{ hashFiles('Descent/Assets/**', 'Descent/Packages/**', 'Descent/ProjectSettings/**') }}
+          restore-keys: |
+            Library-Test-${{ runner.os }}-
+
+      - name: Run EditMode tests
+        uses: game-ci/unity-test-runner@v4
+        env:
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        with:
+          projectPath: Descent
+          testMode: editmode
+          artifactsPath: test-results
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: Unity-Test-Results
+          path: test-results

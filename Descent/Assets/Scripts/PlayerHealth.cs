@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -45,6 +46,7 @@ public class PlayerHealth : MonoBehaviour
 
     void Die()
     {
-        Debug.Log("Player died!");
+        Debug.Log("Player died! Restarting scene...");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

@@ -30,6 +30,7 @@ jobs:
             "Descent/Assets/Scripts/PlayerXP.cs"
             "Descent/Assets/Scripts/SettingsData.cs"
             "Descent/Assets/Scripts/SettingsManager.cs"
+            "Descent/Assets/Scripts/DungeonGenerator.cs"
           )
 
           MISSING=0

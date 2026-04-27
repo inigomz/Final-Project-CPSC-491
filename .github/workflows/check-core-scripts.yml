@@ -1,0 +1,51 @@
+name: Check Required Unity Scripts
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  check-scripts:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Verify Required Scripts Exist
+        run: |
+          echo "Checking required scripts in Descent/Assets/Scripts"
+
+          REQUIRED_FILES=(
+            "Descent/Assets/Scripts/EnemyAi.cs"
+            "Descent/Assets/Scripts/EnemyHealth.cs"
+            "Descent/Assets/Scripts/GameManager.cs"
+            "Descent/Assets/Scripts/MainMenuUI.cs"
+            "Descent/Assets/Scripts/OptionsMenu.cs"
+            "Descent/Assets/Scripts/PlayerAttack.cs"
+            "Descent/Assets/Scripts/PlayerHealth.cs"
+            "Descent/Assets/Scripts/PlayerSpawner.cs"
+            "Descent/Assets/Scripts/PlayerXP.cs"
+            "Descent/Assets/Scripts/SettingsData.cs"
+            "Descent/Assets/Scripts/SettingsManager.cs"
+          )
+
+          MISSING=0
+
+          for FILE in "${REQUIRED_FILES[@]}"; do
+            if [ ! -f "$FILE" ]; then
+              echo "Missing: $FILE"
+              MISSING=1
+            else
+              echo "Exists: $FILE"
+            fi
+          done
+
+          if [ $MISSING -eq 1 ]; then
+            echo "One or more required scripts are missing"
+            exit 1
+          else
+            echo "All required scripts are present"
+          fi

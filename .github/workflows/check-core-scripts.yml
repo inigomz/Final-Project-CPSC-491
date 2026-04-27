@@ -19,7 +19,7 @@ jobs:
           echo "Checking required scripts in Descent/Assets/Scripts"
 
           REQUIRED_FILES=(
-            "Descent/Assets/Scripts/EnemyAi.cs"
+            "Descent/Assets/Scripts/EnemyAI.cs"
             "Descent/Assets/Scripts/EnemyHealth.cs"
             "Descent/Assets/Scripts/GameManager.cs"
             "Descent/Assets/Scripts/MainMenuUI.cs"
@@ -30,6 +30,7 @@ jobs:
             "Descent/Assets/Scripts/PlayerXP.cs"
             "Descent/Assets/Scripts/SettingsData.cs"
             "Descent/Assets/Scripts/SettingsManager.cs"
+            "Descent/Assets/Scripts/DungeonGenerator.cs"
           )
 
           MISSING=0

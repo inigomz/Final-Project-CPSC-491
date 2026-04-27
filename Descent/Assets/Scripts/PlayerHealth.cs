@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -7,6 +8,7 @@ public class PlayerHealth : MonoBehaviour
     public int currentHealth;
 
     public Slider healthBar;
+    public GameObject GameOverUI;
 
     void Start()
     {
@@ -43,6 +45,17 @@ public class PlayerHealth : MonoBehaviour
 
     void Die()
     {
-        Debug.Log("Player died!");
+        Debug.Log("Player Died");
+
+        if (GameOverUI != null)
+        {
+            GameOverUI.SetActive(true);
+        }
+        else
+        {
+            Debug.LogError("GameOverUI is NOT assigned in Inspector!");
+        }
+
+        Time.timeScale = 0f;
     }
 }

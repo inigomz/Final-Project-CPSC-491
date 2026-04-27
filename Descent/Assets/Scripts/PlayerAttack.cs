@@ -10,7 +10,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Space))
         {
-            EnemyHealth[] enemies = FindObjectsOfType<EnemyHealth>(FindObjectsSortMode.None);
+            EnemyHealth[] enemies = FindObjectsByType<EnemyHealth>(FindObjectsSortMode.None);
 
             foreach (EnemyHealth enemy in enemies)
             {
@@ -24,10 +24,4 @@ public class PlayerAttack : MonoBehaviour
             }
         }
     }
-
-    private T[] FindObjectsOfType<T>(FindObjectsSortMode none)
-    {
-        throw new NotImplementedException();
-    }
-
 }

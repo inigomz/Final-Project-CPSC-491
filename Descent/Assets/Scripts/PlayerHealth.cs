@@ -37,11 +37,13 @@ public class PlayerHealth : MonoBehaviour
         UpdateHealthBar();
     }
 
-        void UpdateHealthBar()
+    void UpdateHealthBar()
     {
-        healthBar.value = (float)currentHealth / maxHealth;
+        if (healthBar != null)
+        {
+            healthBar.value = (float)currentHealth / maxHealth;
+        }
     }
-
 
     void Die()
     {

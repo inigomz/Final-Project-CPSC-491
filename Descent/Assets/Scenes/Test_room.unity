@@ -4382,6 +4382,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
   damage: 1
   attackRange: 2
+  primaryAttackKey: 101
+  secondaryAttackKey: 32
 --- !u!114 &685609686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5488,6 +5490,7 @@ GameObject:
   - component: {fileID: 1857034504}
   - component: {fileID: 1857034503}
   - component: {fileID: 1857034506}
+  - component: {fileID: 1857034507}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -5613,6 +5616,21 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!114 &1857034507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1857034502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bc882f6ad3264a4589db86f501389fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraFollow
+  target: {fileID: 685609682}
+  smoothSpeed: 5
+  offset: {x: 0, y: 0, z: 0}
 --- !u!1 &2102183904
 GameObject:
   m_ObjectHideFlags: 0

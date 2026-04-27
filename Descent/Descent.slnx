@@ -37,6 +37,7 @@
   <Project Path="UnityEditor.TestRunner.csproj" />
   <Project Path="Unity.VisualScripting.Core.csproj" />
   <Project Path="Unity.RenderPipelines.Universal.Runtime.csproj" />
+  <Project Path="Tests.csproj" />
   <Project Path="Unity.UnifiedRayTracing.Runtime.csproj" />
   <Project Path="Unity.VisualScripting.State.Editor.csproj" />
   <Project Path="Autodesk.Fbx.csproj" />
